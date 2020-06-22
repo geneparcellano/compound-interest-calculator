@@ -1,0 +1,317 @@
+@import "../bower_components/bootstrap/less/bootstrap.less";
+@icon-font-path: "../fonts/glyphicons/";
+
+/*****************************************************************************
+Variables
+*****************************************************************************/
+@screen-sm: 580px;
+@text-color: #555;
+@text-active: #333;
+@text-muted: #999;
+@color-active: #fff;
+@color-inatctive: #d6d6d6;
+@color-total-return: #b1ec46;
+@color-total-contribution: #429bda;
+@color-starting-amount: #354458;
+
+/*****************************************************************************
+Typography
+*****************************************************************************/
+body {
+	font: 13px/1.3846em Helvetica, Arial, sans-serif;
+	color: @text-muted;
+	font-weight: normal;
+	overflow-y: scroll;
+}
+
+/*****************************************************************************
+Layout
+*****************************************************************************/
+.page {
+	width: 768px;
+	padding-bottom: 100px;
+}
+.page-head {
+	margin: 50px 0 80px;
+	border-top: 6px solid #aaa;
+
+	h1 {
+		margin: 13px 0;
+		font-size: 2em;
+		font-weight: bold;
+	}
+}
+.page-foot {
+	.container {
+		width: 768px;
+	}
+}
+
+/*****************************************************************************
+Static Footer
+*****************************************************************************/
+@footer-height: 80px;
+
+// Necessary for static footer
+html, body {
+    height: 100%;
+}
+body {
+    overflow-y: scroll;
+}
+// Necessary for static footer
+.content-wrap {
+    min-height: 100%;
+    height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+    height: 100%;
+    margin: 0 auto -(@footer-height); /* the bottom margin is the negative value of the footer's height */
+}
+// Necessary for static footer
+.static-foot,
+.static-foot-push {
+	height: @footer-height;
+	margin-bottom: 0;
+}
+
+/*****************************************************************************
+Info Group
+*****************************************************************************/
+.info-group {
+	position: relative;
+	margin-bottom: 20px;
+
+	.info-label,
+	.info-item {
+		display: block;
+		margin-left: 50px;
+	}
+	.info-label {
+		// color: #ddd;
+	}
+	.info-item {
+		font-size: 1.5em;
+	}
+}
+
+/*****************************************************************************
+Input
+*****************************************************************************/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.form-group {
+	margin-bottom: 30px;
+	color: @text-muted;
+	-webkit-transition: color 0.5s linear;
+
+	label {
+		margin-bottom: 5px;
+		font-weight: bold;
+		font-size: 1.5384em;
+	}
+	p {
+		font-size: 1em;
+	}
+	.control-wrap {
+		position: relative;
+		overflow: hidden;
+	}
+	.display-text {
+		position: absolute;
+		top: 21px;
+		left: 16px;
+		pointer-events: none;
+		color: @text-muted;
+	}
+	.form-control[type="number"],
+	.display-text {
+		font-size: 1.5384em;
+		font-weight: bold;
+	}
+	.form-control[type="number"] {
+		display: block;
+		height: auto;
+		margin: 0 auto;
+		padding: 10px;
+		border: 6px solid @color-inatctive;
+		border-radius: 4px;
+		background-color: @color-inatctive;
+		box-shadow: none;
+		color: transparent;
+		-webkit-transition: background 0.2s linear, border 0.2s linear;
+	}
+	.form-control[type="number"]:hover {
+		border-color: #aaa;
+		background-color: @color-active;
+	}
+	.control-options {
+		position: absolute;
+		opacity: 0;
+		top: 12px;
+		right: -100px;
+		-webkit-transition: all 0.3s linear;
+
+		button {
+			height: 36px;
+			width: 36px;
+			padding: 0;
+			border: none;
+			border-radius: 18px;
+			background-color: lighten(gold, 25%);
+			color: lighten(gold, 30%);
+			outline: none;
+
+			&:hover {
+				background-color: lighten(gold, 10%);
+			}
+			&:active {
+				background-color: darken(gold, 2%);
+			}
+		}
+		.glyphicon {
+			color: @color-active;
+		}
+	}
+	.control-wrap:hover {
+		.control-options {
+			opacity: 1;
+			right: 13px;
+		}
+	}
+	&.active {
+		color: @text-color;
+
+		.display-text {
+			display: none;
+		}
+		.control-options {
+			opacity: 1;
+			right: 13px;
+		}
+		.form-control[type="number"] {
+			border: 6px solid #aaa;
+			border-top-color: #777;
+			border-bottom-color: #ddd;
+			background-color: @color-active;
+			color: @text-color;
+		}
+	}
+}
+
+/*****************************************************************************
+Validation
+*****************************************************************************/
+ul.help-block {
+	list-style: none;
+	padding: 0;
+	margin: 10px 0 0 0;
+	color: #f22400;
+}
+ul.help-block li {
+	margin-bottom: 10px;
+}
+
+/*****************************************************************************
+Results
+*****************************************************************************/
+.results-default {
+	margin-left: -100px;
+	.icon {
+		display: block;
+		height: 90px;
+		width: 90px;
+		margin: 160px auto 10px;
+		border: 1px solid darken(#f4bab9, 2%);
+		border-radius: 45px;
+		background: url(../images/arrow-white.svg) no-repeat 13px center #f4bab9;
+		background-size: 55px auto;
+	}
+	p {
+		color: @text-muted;
+		text-align: center;
+		font-size: 1.25em;
+		font-weight: bold;
+	}
+}
+.results {
+	opacity: 0;
+	-webkit-transition: all 1s linear;
+
+	.chart {
+		height: 375px;
+		width: 70px;
+		list-style: none;
+		padding: 0;
+		background-color: darken(#8e978d, 10%);
+		border: 5px solid #fff;
+		border-radius: 5px;
+		box-shadow: 0 0 8px #999;
+
+		.starting-amount,
+		.total-contribution,
+		.total-return {
+			display: block;
+			-webkit-transition: height 0.75s linear;
+		}
+
+		.starting-amount {
+			background-color: @color-starting-amount;
+		}
+		.total-contribution {
+			background-color: @color-total-contribution;
+		}
+		.total-return {
+			background-color: @color-total-return;
+		}
+	}
+
+	.details {
+		.info-label {
+			margin-bottom: 5px;
+		}
+		.info-legend {
+			position: absolute;
+			left: 0;
+			top: 13px;
+			display: block;
+			height: 26px;
+			width: 26px;
+			border-radius: 13px;
+			background-color: #fff;
+			border: 5px solid #fff;
+			box-shadow: 0 0 8px #999;
+		}
+		.info-item {
+			font-size: 1.5384em;
+		}
+		.starting-amount .info-legend {
+			background-color: @color-starting-amount;
+		}
+		.total-contribution .info-legend {
+			background-color: @color-total-contribution;
+		}
+		.total-return .info-legend {
+			background-color: @color-total-return;
+		}
+	}
+
+	.final-balance {
+		padding: 20px 30px 15px;
+		margin-bottom: 40px;
+		border: 6px solid #aaa;
+		border-radius: 4px;
+
+		.info-item {
+			color: @text-color;
+			font-size: 2.5em;
+		}
+
+		.info-label,
+		.info-item {
+			margin: 0 0 15px;
+		}
+	}
+}

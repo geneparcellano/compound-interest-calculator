@@ -1,0 +1,146 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Compound Interest Calculator</title>
+        <meta name="description" content="Simple Compound Interest Calculator.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+    </head>
+    <body>
+        <div class="content-wrap">
+            <main class="page container">
+                <div class="page-head">
+                    <h1>Compound Interest Calculator</h1>
+                </div>
+                <div class="row">
+                    <form class="col-sm-5" role="form" data-bind="submit:getResults, event:{change:getResults}">
+                        <div class="form-group">
+                            <label for="principal">Starting Amount</label>
+                            <p>How much $ are you starting with?</p>
+                            <div class="control-wrap">
+                                <input type="number" class="form-control" id="principal" placeholder="" autofocus="autofocus" data-bind="value:inputPrincipal, event:{focus:focusBlur, blur:focusBlur, keypress:validate}">
+                                <span class="display-text" data-bind="text:inputPrincipalFormatted"></span>
+                                <div class="control-options">
+                                    <button type="button" tabindex="-1" data-bind="event:{focus:focusBlur, blur:focusBlur, touchstart:decrease}, click:decrease"><span class="glyphicon glyphicon-minus"></span></button>
+                                    <button type="button" tabindex="-1" data-bind="event:{focus:focusBlur, blur:focusBlur, touchstart:increase}, click:increase"><span class="glyphicon glyphicon-plus"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="rate">Rate of Return</label>
+                            <p>What is the interest rate?</p>
+                            <div class="control-wrap">
+                                <input type="number" class="form-control" id="rate" placeholder="" data-bind="value:inputRate, event:{focus:focusBlur, blur:focusBlur, keypress:validate}">
+                                <span class="display-text" data-bind="text:inputRateFormatted"></span>
+                                <div class="control-options">
+                                    <button type="button" tabindex="-1" data-bind="event:{focus:focusBlur, blur:focusBlur, touchstart:decrease}, click:decrease"><span class="glyphicon glyphicon-minus"></span></button>
+                                    <button type="button" tabindex="-1" data-bind="event:{focus:focusBlur, blur:focusBlur, touchstart:increase}, click:increase"><span class="glyphicon glyphicon-plus"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contribution">Annual Contribution</label>
+                            <p>How much do you plan to add every year?</p>
+                            <div class="control-wrap">
+                                <input type="number" class="form-control" id="contribution" placeholder="" data-bind="value:inputContribution, event:{focus:focusBlur, blur:focusBlur, keypress:validate}">
+                                <span class="display-text" data-bind="text:inputContributionFormatted"></span>
+                                <div class="control-options">
+                                    <button type="button" tabindex="-1" data-bind="event:{focus:focusBlur, blur:focusBlur, touchstart:decrease}, click:decrease"><span class="glyphicon glyphicon-minus"></span></button>
+                                    <button type="button" tabindex="-1" data-bind="event:{focus:focusBlur, blur:focusBlur, touchstart:increase}, click:increase"><span class="glyphicon glyphicon-plus"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="years">How Long?</label>
+                            <p>How many years are you going to save?</p>
+                            <div class="control-wrap">
+                                <input type="number" class="form-control" id="years" placeholder="" data-bind="value:inputYears, event:{focus:focusBlur, blur:focusBlur, keypress:validate}">
+                                <span class="display-text" data-bind="text:inputYearsFormatted"></span>
+                                <div class="control-options">
+                                    <button type="button" tabindex="-1" data-bind="event:{focus:focusBlur, blur:focusBlur, touchstart:decrease}, click:decrease"><span class="glyphicon glyphicon-minus"></span></button>
+                                    <button type="button" tabindex="-1" data-bind="event:{focus:focusBlur, blur:focusBlur, touchstart:increase}, click:increase"><span class="glyphicon glyphicon-plus"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-sm-5 col-sm-push-2">
+                        <div class="results-default">
+                            <button type="button" class="icon" data-bind="click:getResults"></button>
+                            <p>Enter Values</p>
+                        </div>
+                        <div class="results">
+                            <div class="info-group final-balance">
+                                <span class="info-label">Total after <span data-bind="text:inputYears"></span> years</span>
+                                <strong class="info-item" data-bind="text:finalBalance">$35,176.06</strong>
+                            </div>
+                            <div class="details">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <ul class="chart">
+                                            <li class="total-return" data-bind="style:{height:chartTotalReturn()}"></li>
+                                            <li class="total-contribution" data-bind="style:{height:chartTotalContribution()}"></li>
+                                            <li class="starting-amount" data-bind="style:{height:chartPrincipal()}"></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <div class="info-group total-return">
+                                            <span class="info-legend"></span>
+                                            <span class="info-label">Total Return</span>
+                                            <strong class="info-item" data-bind="text:totalReturn">$176.35</strong>
+                                        </div>
+                                        <div class="info-group total-contribution">
+                                            <span class="info-legend"></span>
+                                            <span class="info-label">Annual Contribution Total</span>
+                                            <strong class="info-item" data-bind="text:totalContribution">$30,0000.00</strong>
+                                        </div>
+                                        <div class="info-group starting-amount">
+                                            <span class="info-legend"></span>
+                                            <span class="info-label">Starting</span>
+                                            <strong class="info-item" data-bind="text:principal()">$5,0000.00</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <div class="static-foot-push"></div>
+        </div>
+        <footer class="page-foot static-foot">
+            <div class="container">
+                <p class="text-danger">* Results generated are only estimates.</p>
+            </div>
+        </footer>
+
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-46756513-2', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+
+        <!-- build:js scripts/main.js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/knockoutjs/dist/knockout.js"></script>
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
+    </body>
+</html>
